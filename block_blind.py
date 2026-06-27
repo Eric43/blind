@@ -16,8 +16,8 @@ def block_blind(img_src='test_img.png',
     for block in blind_block:
         img = cv2.fillPoly(img, np.array([block]), (0,0,0))
 
-    #end for loop
-    cv2.imshow("Block Blind that SHIT", img)
+    #end for loop (will change in future but just to inspect initial function)
+    cv2.imshow("Block Blind inspection window", img)
 
     cv2.waitKey(0)
 
