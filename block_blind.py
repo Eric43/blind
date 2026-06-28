@@ -6,24 +6,25 @@ Additional changes include the use of polyfill instead of rectangle to allow for
 
 def block_blind(img_src='test_img.png',
                 blind_block = ([[0,0],[1280, 0],[1280,48],[0,108]],),
-                ): # header block = ~8.4% y max
+                auto_block = None,
+                ): # header block = ~8.4% y max = 0.084 in fx
 
     import cv2
     import numpy as np
 
     img = cv2.imread(img_src, cv2.IMREAD_COLOR)
 
-    for block in blind_block:
-        img = cv2.fillPoly(img, np.array([block]), (0,0,0))
+    if auto_block == None:
+        for block in blind_block:
+            img = cv2.fillPoly(img, np.array([block]), (0,0,0))
+    elif auto_block > 0:
+        """This sets the block at user defined
+        (i.e. auto_block =0.084 or 8.4% of the image) at the header"""
+        h, w, _ = img.shape
+        xmin = 0
+        ymin = 0
+        xmax = w
+        ymax = round(auto_block * h)
+        img = cv2.rectangle(img, (xmin,ymin), (xmax, ymax), (0,0,0), -1)
 
-    #end for loop (will change in future but just to inspect initial function)
-    cv2.imshow("Block Blind inspection window", img)
-
-    cv2.waitKey(0)
-
-    cv2.destroyAllWindows()
-
-
-    #####Determine the image size and adjust width and height????
-
-#### NOT ALL ARE 640x480 autosize can adjust block height.
+    return img

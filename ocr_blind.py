@@ -38,8 +38,8 @@ def midpoint(x1, y1, x2, y2):
     y_mid = int((y1 + y2)/2)
 
     return (x_mid, y_mid)
-
-method = "easyOCR_poly_inpaint"
+## methods are:  easyOCR_block, easyOCR_poly_inpaint and easyOCR_line_inpaint
+method = "easyOCR_block"
 # This needs to run only once to load the model into memory
 reader = easyocr.Reader(['en'])
 
