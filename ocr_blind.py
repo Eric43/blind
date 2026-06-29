@@ -39,7 +39,7 @@ def midpoint(x1, y1, x2, y2):
 
     return (x_mid, y_mid)
 ## methods are:  easyOCR_block, easyOCR_poly_inpaint and easyOCR_line_inpaint
-method = "easyOCR_block"
+method = "easyOCR_line_inpaint"
 # This needs to run only once to load the model into memory
 reader = easyocr.Reader(['en'])
 
@@ -91,10 +91,8 @@ for res in results:
 #At this point return the image
 
 #end for loop
-cv2.imshow("blind", img)
+"""cv2.imshow("blind", img)
 
 # wait for the user to press any key to exit window
 cv2.waitKey(0)
-
-# Closing all open windows
-cv2.destroyAllWindows()
+"""

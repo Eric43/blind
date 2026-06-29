@@ -11,6 +11,38 @@ The pyproject.toml file is for a macOS UV managed venv.
 
 ...More to follow.  Takes time
 
+## Examples
+While similar the functions have slightly different responses to the orginal work (ancedotal observation) but overall the same model training response.
+
+### Using a basic image.
+The following image used the included .png and very simple colored square interesction to look at misidentification along with basic easy to observer text.
+
+![Example Image using block blinding](method_ocr_block.jpg)
+
+This is using an input .png with block
+
+![Example Image using block blinding](method_ocr_poly_inpaint.jpg)
+
+Very slight modification from the published work.
+
+![Example Image using block blinding](method_ocr_line_inpaint.jpg)
+
+Using prior inpaint/line method (Calhoun et al.)
+
+### Prior work derived example
+
+![Image using block blinding](example1_ocr_block.jpg)
+
+This is using an input .jpg with block
+
+![Example Image using block blinding](example1_ocr_poly_inpaint.jpg)
+
+Very slight modification from the published work.
+
+![Example Image using block blinding](example_ocr_line_inpaint.jpg)
+
+Using prior inpaint/line method (Calhoun et al.)
+
 
 ## References
 
