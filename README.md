@@ -9,7 +9,7 @@ This is still a work in progress and requires additional testing in docker env u
 
 The pyproject.toml file is for a macOS UV managed venv.
 
-...More to follow.  Takes time
+More to follow as code changes from TF to pytorch for this work.
 
 ## Examples
 While similar the functions have slightly different responses to the orginal work (ancedotal observation) but overall the same model training response.
@@ -37,9 +37,9 @@ This is using an input .jpg with block
 
 ![Example Image using block blinding](example1_ocr_poly_inpaint.jpg)
 
-Very slight modification from the published work.
+Very slight modification from the published work. using filledpoly for bboxes
 
-![Example Image using block blinding](example_ocr_line_inpaint.jpg)
+![Example Image using block blinding](example1_ocr_line_inpaint.jpg)
 
 Using prior inpaint/line method (Calhoun et al.)
 
