@@ -20,7 +20,7 @@ from default and may need further tweaking. For blinding.
 Currently used:
 text_threshold=0.5,low_text=0.25,min_size=6.  26June26
 
-This function differes from the OG publication by changing to easyOCR
+This function differs from the OG publication by changing to easyOCR
 but the underlying detection model (CRAFT(?REF?)) basically remain the same.
 
 """
@@ -74,7 +74,7 @@ for res in results:
             cv2.fillPoly(mask, pts=np.asarray([xy]), color = 255)
             # Could probably just make a mask and inpaint all at the end.
             img = cv2.inpaint(img, mask, 2.71828, cv2.INPAINT_NS)
-        case 'easyOCR_line_inpaint':
+        case 'easyOCR_line_inpaint': #May remove later
             #This is the method published in 2024 in Calhoun et al.
             x_mid0, y_mid0 = midpoint(xy1[0], xy1[1], xy2[0], xy2[1])
             x_mid1, y_mid1 = midpoint(xy0[0], xy0[1], xy3[0], xy3[1])

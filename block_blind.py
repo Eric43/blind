@@ -1,5 +1,5 @@
 """
-This is a method originally part of a larger function however this does not require any form of AI and maybe used independantly if an AI envrinoment.
+This is a method originally part of a larger function however this does not require any form of AI and maybe used independently if an AI environment.
 Additional changes include the use of polyfill instead of rectangle to allow for more complex header shapes for blinding.  Will keep the "auto blind" to blind a percentage of the header.
 
 """
