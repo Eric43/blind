@@ -29,9 +29,10 @@ def ocr_blind_vid(file_name,
     import os
 
     import easyocr
-    #Doing a simple cut and past of the OCR method.  Will call later?  Pipleine loading
+    #Doing a simple copy and past of the OCR method.  Will call later?  reader?
+    #Can I pass parallel process this stuff? Or just stuff it all into a main
+    #Later of course :) Because I'm going full wabi sabi!
 
-    def blind_frame(img, method, reader):
 
         mask = np.zeros(img.shape[:2], dtype="uint8")
 #
@@ -108,10 +109,10 @@ def ocr_blind_vid(file_name,
     # and the second is frame
         ret, frame = vid_capture.read()
         if ret == True:
-            frame = ocr_blind(img_src = frame, method = blind_mthd, reader=reader)
+            frame = blind_frame(img_src = frame, method = blind_mthd, reader=reader)
         elif:
             print("The AI module has FAILED to blind the frame.")
-            exit(print(f'The video frame: {frame_count} failure work on error'))
+            exit(print(f'The video frame: {frame_num} OF {frame_count} failure'))
 
         #### Write the individual images
         cv2.imwrite(os.path.join(file_path, new_path,  img_prefix +  img_class +  unique_id + "frame%d.png" % frame_num), frame)

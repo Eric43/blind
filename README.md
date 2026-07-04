@@ -44,6 +44,12 @@ Very slight modification from the published work. using filledpoly for bboxes
 Using prior inpaint/line method (Calhoun et al.)
 
 
+### Facial blinding
+
+A basic facial detection an blur are added for basic de-identification.  The image used for testing is:
+
+"People photography is hard" by mendhak is licensed under CC BY-SA 2.0.
+
 ## References
 
 #### PyTorch:
