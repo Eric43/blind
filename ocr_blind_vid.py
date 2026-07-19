@@ -1,20 +1,9 @@
-########################################
-#### function to extract frames from ###
-### An standard video file and save ####
-#### to an png.  Will add blinding  ####
-### And ability to select img type  ####
-#### in the futures.  V. 0.1 alpha  ####
-#### GPLv3 license fsf.org           ###
-####  SynXBio Inc.  Written by:      ###
-### Eric W. Olle  30 November 2023  ####
-########################################
-
 
 #### Working on for pytorch conversion.
-def ocr_blind_vid(file_name='temp_vid_name.avi',
+def ocr_blind_vid(file_name='rnd_wrds_1.mp4',
                     file_path='/',
                     new_path = '/frames',
-                    show_vid = True,
+                    show_vid = False,
                     blind_mthd = 'easyOCR_block'):
 
     """Function to take a video image and blind the text (and facial?)
@@ -35,15 +24,18 @@ def ocr_blind_vid(file_name='temp_vid_name.avi',
 
     reader = easyocr.Reader(['en'])
 
-    def blind_frame(img: np.array, results, method: str):
+    def blind_frame(img, results, method: str):
         """Basic function to take the results, image and method and blind it"""
         mask = np.zeros(img.shape[:2], dtype="uint8")
+
         for res in results:
             # bbox coordinates of the detected text used for legacy method
             xy = res[0]
             match method:
                 case 'easyOCR_block':
-                    img = cv2.fillPoly(img, pts= np.asarray([xy]), color=(0, 0, 0))
+                    print(f'xy = {[xy]}')
+                    img = cv2.fillPoly(img, pts= np.asarray([xy], dtype = np.int32), color=(0, 0, 0))
+
                 case 'easyOCR_poly_inpaint':
                     cv2.fillPoly(mask, pts=np.asarray([xy]), color = 255)
                     # Could probably just make a mask and inpaint all at the end.
@@ -64,21 +56,18 @@ def ocr_blind_vid(file_name='temp_vid_name.avi',
 
     if (vid_capture.isOpened() == False):
         print(f"Error opening video file {file_name}")
+        quit()
 
-    else:
-        fps = vid_capture.get(5)
-        frame_count = int(vid_capture.get(cv2.CAP_PROP_FRAME_COUNT))
-        frame_width = int(vid_capture.get(3))
-        frame_height = int(vid_capture.get(4))
-        print("FPS: ", fps, "/ Frame count: ", frame_count,"/ Frame width: ",  frame_width, "/ Frame height: ",frame_height)
 
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec
-    video_out = cv2.VideoWriter('temp_vid_name.avi', fourcc, fps, (frame_width, frame_height))
-#### Check for save folder and create if it doesn't exist
+    fps = vid_capture.get(5)
+    frame_count = int(vid_capture.get(cv2.CAP_PROP_FRAME_COUNT))
+    frame_width = int(vid_capture.get(3))
+    frame_height = int(vid_capture.get(4))
 
-    """if not os.path.isdir(new_path):
-        os.makedirs(new_path)
-## Set Frame number"""
+    print("FPS: ", fps, "/ Frame count: ", frame_count,"/ Frame width: ",  frame_width, "/ Frame height: ",frame_height)
+
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Define the codec
+    video_out = cv2.VideoWriter('temp_vid_name.mp4', fourcc, fps, (frame_width, frame_height))
 
     frame_num = 0
 #### Open video capture and run through each frame
@@ -86,31 +75,26 @@ def ocr_blind_vid(file_name='temp_vid_name.avi',
     # vid_capture.read() methods returns a tuple, first element is a bool
     # and the second is frame
         ret, frame = vid_capture.read()
-        if ret == True:
+        if ret != True:
+            #note move to error or exception type call ?
+            break
+        results = reader.readtext(frame,
+                        text_threshold=0.5,
+                        low_text=0.25,
+                        min_size=6,
+                        )
+        print(f'The OCR found {len(results)} text boxes in frame {frame_num}.')
+        if len(results) > 0:
+            frame = blind_frame(img=frame, results=results, method=blind_mthd)
 
-            results = reader.readtext(frame,
-                          text_threshold=0.5,
-                          low_text=0.25,
-                          min_size=6,
-                          )
-            if len(results) > 0:
-                frame = blind_frame(img=frame, results=results, method=blind_mthd)
-            video_out.write(frame)
-        elif ret!=True:
-            print("The AI module has FAILED to blind the frame.")
-            exit(print(f'The video frame: {frame_num} OF {frame_count} failure'))
+        video_out.write(frame)
 
         #### Write the individual images
         #cv2.imwrite(os.path.join(file_path, new_path,  img_prefix +  img_class +  unique_id + "frame%d.png" % frame_num), frame)
         #frame_num += 1
         ### Show the video"
-        if show_vid:
-            cv2.imshow('original_video', frame)
-            key = cv2.waitKey(10)
-            if key == ord('q'):
-                break
-        else:
-            break
+        frame_num += 1
+
 
     # Release the video capture object
     vid_capture.release()

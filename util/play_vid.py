@@ -1,7 +1,7 @@
 import cv2
 
 # Load the video file
-cap = cv2.VideoCapture("temp_vid_name.avi")
+cap = cv2.VideoCapture("rnd_wrd_1.mp4")
 
 # Check if the video opened correctly
 if not cap.isOpened():
