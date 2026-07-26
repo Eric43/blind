@@ -25,10 +25,11 @@ but the underlying detection model (CRAFT(?REF?)) basically remain the same.
 
 """
 
+import math
+
 import cv2
 import easyocr
 import numpy as np
-import math
 
 #TODO finish testing and adding easier **kwargs for easyOCR mods
 
@@ -86,7 +87,7 @@ for res in results:
             print('The method chosen is not recognized: ', method)
             #mayneed to return an error for the API
             img = mask #Basically removing the img because it may contain data
-            exit()
+            raise ValueError
 
 #At this point return the image
 

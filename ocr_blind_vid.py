@@ -15,8 +15,7 @@ def ocr_blind_vid(file_name='rnd_wrds_1.mp4',
     # importing the necessary libraries
     import cv2
     import numpy as np
-    import os
-
+    #import os
     import easyocr
     #Doing a simple copy and past of the OCR method.  Will call later?  reader?
     #Can I pass parallel process this stuff? Or just stuff it all into a main
@@ -35,7 +34,6 @@ def ocr_blind_vid(file_name='rnd_wrds_1.mp4',
                 case 'easyOCR_block':
                     print(f'xy = {[xy]}')
                     img = cv2.fillPoly(img, pts= np.asarray([xy], dtype = np.int32), color=(0, 0, 0))
-
                 case 'easyOCR_poly_inpaint':
                     cv2.fillPoly(mask, pts=np.asarray([xy]), color = 255)
                     # Could probably just make a mask and inpaint all at the end.
@@ -54,7 +52,7 @@ def ocr_blind_vid(file_name='rnd_wrds_1.mp4',
     #Need to pull from the video capture?
     ### Onces the source of video capture is determined then start a
 
-    if (vid_capture.isOpened() == False):
+    if not vid_capture.isOpened():
         print(f"Error opening video file {file_name}")
         quit()
 
@@ -70,12 +68,12 @@ def ocr_blind_vid(file_name='rnd_wrds_1.mp4',
     video_out = cv2.VideoWriter('temp_vid_name.mp4', fourcc, fps, (frame_width, frame_height))
 
     frame_num = 0
-#### Open video capture and run through each frame
+    #### Open video capture and run through each frame
     while(vid_capture.isOpened()):
     # vid_capture.read() methods returns a tuple, first element is a bool
     # and the second is frame
         ret, frame = vid_capture.read()
-        if ret != True:
+        if not ret:
             #note move to error or exception type call ?
             break
         results = reader.readtext(frame,
