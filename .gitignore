@@ -1,5 +1,5 @@
 # VSCode Basic Python .gitignore
-
+test_blind_img
 # VSCode settings and workspace
 .vscode/settings.json
 .vscode/launch.json
