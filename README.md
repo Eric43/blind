@@ -1,6 +1,16 @@
 # Blind
 This is a very general repository for the support functions/applications used for blinding ultrasound and other images containing information that needs to be removed (i.e. patient data or even text that may correlate to different categories).
 
+## Annotation best practices
+It has been observed (ewo unpublished) that the location, size and color of the annotating text may interfere with downstream data analysis (object detection and image classification).  No exact criteria have been established some possible best practices for annotating ultrasound images for later AI/ML analysis are:
+1.  Clearly mark using a color that is significantly different than colors that may occur on doppler etc.  Such as a yellow or green.
+2.  Large enough to be detected by the underlying model (i.e 6 to 8 pt text is a minimum but 10+ has a higher probability of detection when random noise is added.)
+3.  Minimal overlap with the region of interest and potentially well clear of important anatomy.
+4.  Don't worry if some overlap of minimal information containing regions.
+5.  Arrows, lines, boxes an etc may not be detected by the OCR methods.  However if the markings are present at roughly equal probability in the different classes it may have limited impact on image classification and nearly no impact on object detection.
+
+Most of these suggestions are already followed but this is a reiteration of for sonographers and doctors.
+
 ## NOTES:
 Sept, 8 2026.  The function ocr_blind2 is being used and developed as a stand alone will work on combining ocr_blind to be either a CLI blinding method and an online API method that does not store the initial image or detected data.
 

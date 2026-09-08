@@ -31,7 +31,7 @@ def ocr_blind2(file_name = 'test_img.png',
     import math
     import os
     import uuid
-    import tqdm
+    #import tqdm
 
     import cv2
     import easyocr
