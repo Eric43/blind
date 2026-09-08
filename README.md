@@ -2,7 +2,11 @@
 This is a very general repository for the support functions/applications used for blinding ultrasound and other images containing information that needs to be removed (i.e. patient data or even text that may correlate to different categories).
 
 ## NOTES:
-ocr_blind2 is being used and developed as a
+Sept, 8 2026.  The function ocr_blind2 is being used and developed as a stand alone will work on combining ocr_blind to be either a CLI blinding method and an online API method that does not store the initial image or detected data.
+
+Sept, 8 2026. Working on testing the range of detectability of different text with and without random noise being added to testing images.
+
+Sept, 8 2026.  Need to change the call for mps (in macOS) to remove the pin memory warning.
 
 ## Change in AI backend from TF to Pytorch.
 These functions continue to use openCV2-python (and others) but switched to using a pytorch backend and switching to easy OCR.  The easy OCR method seems to be working well but needs slight "tweaks" or tuning out of the box to correctly ID the necessary text but not over/under identify non-specific regions of the image.  Additionally, slight changes in the inpaint method and a just black polygons can be used to cover the identified text boxes.
